@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "rbfn-ssl-projector"
+version = "0.1.0"
+description = "Radial Basis Function Networks as Projection Heads in Self-Supervised Learning."
+authors = [
+    "Andreas Schliebitz <a.schliebitz@hs-osnabrueck.de>",
+    "Heiko Tapken <h.tapken@hs-osnabrueck.de>",
+    "Martin Atzmueller <martin.atzmueller@uni-osnabrueck.de>",
+]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{ include = "rbfn_ssl_projector" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyyaml = "6.0.3"
+mlflow = "3.6.0"
+
+# Architectures for Self-Supervised Learning
+simsiam = { git = "ssh://git@simsiam.github.com/andreas-schliebitz/simsiam.git" }
+moco = { git = "ssh://git@moco.github.com/andreas-schliebitz/moco.git" }
+byol = { git = "ssh://git@byol.github.com/andreas-schliebitz/byol.git" }
+simclr = { git = "ssh://git@simclr.github.com/andreas-schliebitz/simclr.git" }
+swav = { git = "ssh://git@swav.github.com/andreas-schliebitz/swav.git" }
+
+# Custom RBFN projection head
+rbfn-head = { git = "ssh://git@rbfn-head.github.com/andreas-schliebitz/rbfn-head.git" }
+
+# Logistic Regression for backbone evaluation
+logreg = { git = "ssh://git@logreg.github.com/andreas-schliebitz/logreg.git" }
+
+# Collection of vision datasets for training and evaluation
+vision-datasets = { git = "ssh://git@vision-datasets.github.com/andreas-schliebitz/vision-datasets.git" }
+
+[tool.poetry.group.dev.dependencies]
+pytest = "9.0.1"
+black = "25.11.0"
+
+[tool.pytest.ini_options]
+addopts = "-s"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

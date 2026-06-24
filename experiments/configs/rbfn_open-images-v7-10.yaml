@@ -1,0 +1,99 @@
+rootdir: "/cluster/user/aschlieb/promotion/code/rbfn-ssl-projector"
+env:
+  MLFLOW_TRACKING_URI: "https://mlflow-tracking-url.internal"
+  MLFLOW_TRACKING_USERNAME: "mlflow-tracking-username"
+  MLFLOW_TRACKING_PASSWORD: "mlflow-tracking-password"
+constants:
+  dataset:
+    dataset-dir: "/mnt/datasets"
+    dataset-name: "OpenImagesV7-10"
+    train-perc: 0.7
+    val-perc: 0.1
+    test-perc: 0.2
+    img-size: 224
+    normalize: true
+    num-workers: 32
+    pin-memory: true
+    precision: null
+  model:
+    backbone: "resnet50"
+    # equivalent to ResNet50_Weights.IMAGENET1K_V2
+    weights: "DEFAULT"
+    projection-head-type: "rbfn"
+    projection-head-batch-norm: false
+    rbfn-projection-head-norm-function: "euclidian"
+  train:
+    devices: 8
+    epochs: 100
+    save-top-k: null
+  eval:
+    eval-train-perc: 0.7
+    eval-val-perc: 0.1
+    eval-test-perc: 0.2
+    eval-epochs: 200
+    eval-batch-size: 64
+    eval-learning-rate: 0.001
+    eval-weight-decay: 0.0001
+  logging:
+    log-dir: "logs"
+    experiment-name: "rbfn-ssl-projector-rbfn_open-images-v7-10"
+    experiment-eval-name: "rbfn-ssl-projector-rbfn-eval_open-images-v7-10"
+    use-mlflow: true
+variables:
+  simclr:
+    projection-head:
+      projection-head-hidden-dim: 2048
+      projection-head-output-dim: 128
+    train:
+      optimizer: "LARS"
+      weight-decay: 0.000001
+      momentum: 0.9
+      batch-size: 2048
+      base-learning-rate: 0.3
+  simsiam:
+    projection-head:
+      projection-head-hidden-dim: 2048
+      projection-head-output-dim: 2048
+    train:
+      optimizer: "SGD"
+      weight-decay: 0.0001
+      momentum: 0.9
+      batch-size: 512
+      base-learning-rate: 0.05
+  moco:
+    projection-head:
+      projection-head-hidden-dim: 2048
+      projection-head-output-dim: 128
+    train:
+      optimizer: "SGD"
+      weight-decay: 0.0001
+      momentum: 0.9
+      batch-size: 256
+      base-learning-rate: 0.03
+  byol:
+    projection-head:
+      projection-head-hidden-dim: 4096
+      projection-head-output-dim: 256
+    train:
+      optimizer: "LARS"
+      weight-decay: 0.0000015
+      momentum: 0.9
+      batch-size: 2048
+      base-learning-rate: 0.2
+  swav:
+    projection-head:
+      projection-head-hidden-dim: 2048
+      projection-head-output-dim: 128
+    train:
+      optimizer: "LARS"
+      weight-decay: 0.000001
+      momentum: 0.9
+      batch-size: 2048
+      base-learning-rate: 0.6
+ranges:
+  architecture: ["simclr", "simsiam", "moco", "byol", "swav"]
+  projection-head-num-layers: [2, 3, 4]
+  rbfn-projection-head-num-kernels: [512, 256, 128]
+  rbfn-projection-head-radial-function:
+    ["gaussian", "inverse_multiquadric", "multiquadric", "tps"]
+  rbfn-projection-head-normalize: [true, false]

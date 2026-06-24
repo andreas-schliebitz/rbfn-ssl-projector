@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: If you use this software in your work, please cite this GitHub repository.
+preferred-citation:
+  abstract: >-
+    Self-supervised learning (SSL) typically relies on a backbone encoder
+    followed by a small multilayer perceptron (MLP) projection head, which is
+    conventionally discarded after training, while backbone quality is assessed
+    via costly linear probing on labeled data. We argue that this approach
+    including discarding the projector is rather computationally wasteful.
+    Instead, we propose replacing the MLP head with a radial basis function
+    network (RBFN), whose interpretable center and shape parameters can be
+    exploited to judge representation quality without labels or a separate
+    classifier. To this end, we introduce Scale-Normalized Separation (SNS), a
+    novel label-free quality metric derived solely from the kernel centers and
+    shapes learned during training. Across five canonical SSL architectures
+    (MoCo, SimCLR, BYOL, SwAV and SimSiam) and four image classification
+    datasets, we show that RBFN projection heads are competitive drop-in
+    replacements for standard MLP projectors. We recommend constructing them
+    with three RBF layers activated by the Gaussian radial basis function.
+    Moreover, SNS exhibits strong to very strong positive correlation with
+    established logistic regression metrics, demonstrating that a trained RBFN
+    projector can act as a reliable proxy for backbone representation quality.
+    We additionally publish a novel PyTorch compatible image classification
+    dataset based on Google's Open Images V7 to facilitate reproducible research
+    into representation learning.
+  authors:
+    - family-names: Schliebitz
+      given-names: Andreas
+    - family-names: Tapken
+      given-names: Heiko
+    - family-names: Atzmueller
+      given-names: Martin
+  doi: 10.48550/ARXIV.2606.21590
+  identifiers:
+    - type: doi
+      value: 10.48550/ARXIV.2606.21590
+    - type: url
+      value: https://arxiv.org/abs/2606.21590
+  title: >-
+    Radial Basis Function Networks as Projection Heads in Self-Supervised
+    Learning
+  url: https://arxiv.org/abs/2606.21590
+  version: '1'
+  date-published: 2026-06-19
+  year: 2026
+  publisher:
+    name: arXiv
+  type: article
